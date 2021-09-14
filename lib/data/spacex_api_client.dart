@@ -22,7 +22,8 @@ class SpaceXApiClient {
 
   Future<SpaceX> getSpaceX() async {
     final spaceXMissionURL = baseUrl;
-    final missionIncomingAnswer = await httpClient.get(spaceXMissionURL);
+    Uri url = Uri.parse(spaceXMissionURL);
+    final missionIncomingAnswer = await httpClient.get(url);
     if (missionIncomingAnswer.statusCode != 200) {
       throw Exception("Data could not be brought");
     }

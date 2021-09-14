@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,9 @@ import 'package:spacex/theme_cubit.dart';
 import 'package:spacex/viewmodels/spacex_view_model.dart';
 import 'package:spacex/widget/spacex_app.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   setupLocator();
   runApp(MyApp());
 }
