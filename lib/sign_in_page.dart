@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:spacex/common_widgets/social_log_in_button.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key key}) : super(key: key);
+  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
+  //state management ya da bloc kullanmıyorsak geriye bilgi göndermek için callback i kullanıyoruz, ve aslında signinpage den bir nesne ürettiğimizde geriye yollamak istediğimiz olayı belirtiyoruz
+  final Function(User) onSignIn;
+
+  void _anonymousSignIn() async {
+    UserCredential result = await FirebaseAuth.instance.signInAnonymously();
+    onSignIn(result.user);
+    print("Logining User ID: " + result.user.uid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +54,5 @@ class SignInPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _anonymousSignIn() async {
-    UserCredential result = await FirebaseAuth.instance.signInAnonymously();
-    print("Logining User ID: " + result.user.uid);
   }
 }

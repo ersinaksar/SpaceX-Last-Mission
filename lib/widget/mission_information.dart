@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MissionInformationWidget extends StatelessWidget {
-  String missionDetails;
+  var missionDetails;
   MissionInformationWidget({@required this.missionDetails});
 
   @override
   Widget build(BuildContext context) {
+    if (missionDetails == null) {
+      missionDetails = "No info";
+    }
     return Column(
       children: [
         /*Row(

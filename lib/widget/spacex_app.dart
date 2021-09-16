@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:spacex/landing_page.dart';
 import 'package:spacex/sign_in_page.dart';
 import 'package:spacex/theme_cubit.dart';
 import 'package:spacex/viewmodels/spacex_view_model.dart';
@@ -55,7 +56,7 @@ class SpaceXApp extends StatelessWidget {
                 ? SpaceXGetting()
                 : (_spaceXViewModel.state == SpaceXState.SpaceXErrorState)
                     ? SpaceXError()
-                    : SignInPage(), /*Text(
+                    : LandingPage(), /*SignInPage(),*/ /*Text(
                         "Press Refresh Button",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
@@ -85,9 +86,10 @@ class SpaceXApp extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Center(
-              child: MissionInformationWidget(
-                  //with parameter usage
-                  missionDetails: _spaceXViewModel.handedSpaceX.details)),
+            child: MissionInformationWidget(
+                //with parameter usage
+                missionDetails: _spaceXViewModel.handedSpaceX.details),
+          ),
         ),
       ],
     );
@@ -98,6 +100,7 @@ class SpaceXApp extends StatelessWidget {
   }
 
   SpaceXError() {
+    print("Error While SpaceX getting");
     return Text("Error While SpaceX getting");
   }
 }
