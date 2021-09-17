@@ -1,16 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spacex/common_widgets/social_log_in_button.dart';
+import 'package:spacex/models/user_model.dart';
+import 'package:spacex/services/auth_base.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
+  const SignInPage(
+      {Key key, @required this.onSignIn, @required this.authService})
+      : super(key: key);
   //state management ya da bloc kullanmıyorsak geriye bilgi göndermek için callback i kullanıyoruz, ve aslında signinpage den bir nesne ürettiğimizde geriye yollamak istediğimiz olayı belirtiyoruz
   final Function(User) onSignIn;
+  //final Function(UserModel) onSignIn;//2. yol dependency injection
+
+  final AuthBase authService; //2. yol dependency injection
 
   void _anonymousSignIn() async {
     UserCredential result = await FirebaseAuth.instance.signInAnonymously();
+    UserModel _user =
+        await authService.signInAnonymously(); //2. yol dependency injection
     onSignIn(result.user);
+    //onSignIn(_user); //2. yol dependency injection
     print("Logining User ID: " + result.user.uid);
+    //print("Logining User ID: " + user.userID);//2. yol dependency injection
   }
 
   @override

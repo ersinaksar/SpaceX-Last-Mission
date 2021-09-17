@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:spacex/landing_page.dart';
+import 'package:spacex/services/firebase_auth_service.dart';
 import 'package:spacex/sign_in_page.dart';
 import 'package:spacex/theme_cubit.dart';
 import 'package:spacex/viewmodels/spacex_view_model.dart';
@@ -56,7 +57,9 @@ class SpaceXApp extends StatelessWidget {
                 ? SpaceXGetting()
                 : (_spaceXViewModel.state == SpaceXState.SpaceXErrorState)
                     ? SpaceXError()
-                    : LandingPage(), /*SignInPage(),*/ /*Text(
+                    : LandingPage(
+                        authService: FirebaseAuthService(),
+                      ), /*SignInPage(),*/ /*Text(
                         "Press Refresh Button",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
