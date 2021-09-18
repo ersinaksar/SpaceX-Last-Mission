@@ -16,8 +16,7 @@ class SocialLoginButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const SocialLoginButton(
-      {Key key,
-      @required this.butonText,
+      {@required this.butonText,
       this.butonColor: Colors.purple,
       this.textColor: Colors.white,
       this.radius:
@@ -27,9 +26,7 @@ class SocialLoginButton extends StatelessWidget {
 
       @required this.onPressed})
       : assert(butonText != null, onPressed != null),
-        super(
-            key:
-                key); //butonun onpresi tipi voidcollback yapısı olan geriye bir değer döndürmeyen callback yapısı, onpress  birşey tıklandığında
+        super(); //butonun onpresi tipi voidcollback yapısı olan geriye bir değer döndürmeyen callback yapısı, onpress  birşey tıklandığında
 
   @override
   Widget build(BuildContext context) {

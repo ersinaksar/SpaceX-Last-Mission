@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:spacex/locator.dart';
 import 'package:spacex/theme_cubit.dart';
 import 'package:spacex/viewmodels/spacex_view_model.dart';
-import 'package:spacex/widget/spacex_app.dart';
+import 'package:spacex/viewmodels/user_view_model.dart';
+import 'package:spacex/app/spacex_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
   setupLocator();
   runApp(MyApp());
 }
@@ -21,13 +22,16 @@ class MyApp extends StatelessWidget {
       //tüm ağaca bu değeri verdik material app artık bu değeri biliyor
       create: (context) => ThemeCubit(),
       child: BlocBuilder<ThemeCubit, ThemeData>(builder: (context, tema) {
-        return MaterialApp(
-          title: 'Space X',
-          debugShowCheckedModeBanner: false,
-          theme: tema,
-          home: ChangeNotifierProvider<SpaceXViewModel>(
-            create: (context) => locator<SpaceXViewModel>(),
-            child: SpaceXApp(),
+        return ChangeNotifierProvider(
+          create: (context) => UserViewModel(),
+          child: MaterialApp(
+            title: 'Space X',
+            debugShowCheckedModeBanner: false,
+            theme: tema,
+            home: ChangeNotifierProvider<SpaceXViewModel>(
+              create: (context) => locator<SpaceXViewModel>(),
+              child: SpaceXApp(),
+            ),
           ),
         );
       }),

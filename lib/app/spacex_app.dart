@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:spacex/landing_page.dart';
+import 'package:spacex/app/landing_page.dart';
+import 'package:spacex/locator.dart';
 import 'package:spacex/services/firebase_auth_service.dart';
-import 'package:spacex/sign_in_page.dart';
+import 'package:spacex/app/sign_in/sign_in_page.dart';
 import 'package:spacex/theme_cubit.dart';
 import 'package:spacex/viewmodels/spacex_view_model.dart';
 import 'package:spacex/widget/last_mission.dart';
@@ -15,7 +16,7 @@ import 'package:spacex/widget/mission_information.dart';
 /// Custom [BlocObserver] which observes all bloc and cubit instances.
 class SimpleBlocObserver extends BlocObserver {
   @override
-  void onEvent(Bloc bloc, Object event) {
+  void onEvent(Bloc bloc, Object event) async {
     super.onEvent(bloc, event);
     print(event);
   }
@@ -57,9 +58,7 @@ class SpaceXApp extends StatelessWidget {
                 ? SpaceXGetting()
                 : (_spaceXViewModel.state == SpaceXState.SpaceXErrorState)
                     ? SpaceXError()
-                    : LandingPage(
-                        authService: FirebaseAuthService(),
-                      ), /*SignInPage(),*/ /*Text(
+                    : LandingPage(), /*SignInPage(),*/ /*Text(
                         "Press Refresh Button",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
@@ -99,6 +98,7 @@ class SpaceXApp extends StatelessWidget {
   }
 
   SpaceXGetting() {
+    print("spacex_app SpaceXGetting");
     return CircularProgressIndicator();
   }
 
@@ -109,10 +109,6 @@ class SpaceXApp extends StatelessWidget {
 }
 
 class MyActions extends StatelessWidget {
-  const MyActions({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
