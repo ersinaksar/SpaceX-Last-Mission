@@ -122,7 +122,7 @@ class _EmailAndPasswordLoginPageState extends State<EmailAndPasswordLoginPage> {
                             errorText: _userViewModel.sifreHataMesaji != null
                                 ? _userViewModel.sifreHataMesaji
                                 : null,
-                            prefixIcon: Icon(Icons.mail),
+                            prefixIcon: Icon(Icons.lock),
                             hintText: "Sifre",
                             labelText: "Sifre",
                             border: OutlineInputBorder(),
@@ -138,7 +138,7 @@ class _EmailAndPasswordLoginPageState extends State<EmailAndPasswordLoginPage> {
                           butonText: _butonText,
                           butonColor: Theme.of(context).primaryColor,
                           radius: 10,
-                          onPressed: () =>
+                          onPressed: () async =>
                               _formSubmit(), //() => bu bu on prest tetiklendiği an bu _formSubmit(context) fonksiyonunu çalıştır demek
                         ),
                         SizedBox(

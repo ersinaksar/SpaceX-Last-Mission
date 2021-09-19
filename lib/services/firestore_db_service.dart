@@ -7,20 +7,19 @@ class FireStoreDBService implements DBBase {
 
   @override
   Future<bool> saveUser(UserModel user) async {
-    DocumentSnapshot _okunanUser =
-        await Firestore.instance.document("users/${user.userID}").get();
-
-    if (_okunanUser.data == null) {
-      await _firebaseDB
-          .collection("users")
-          .document(user.userID)
-          .setData(user.toMap());
-      return true;
-    } else {
-      return true;
-    }
+    await _firebaseDB
+        .collection("users")
+        .document(user.userID)
+        .setData(user.toMap());
+    return true;
   }
 
+  @override
+  Future<UserModel> readUser(String userID) {
+    // TODO: implement readUser
+    throw UnimplementedError();
+  }
+/*
   @override
   Future<UserModel> readUser(String userID) async {
     DocumentSnapshot _okunanUser =
@@ -30,5 +29,5 @@ class FireStoreDBService implements DBBase {
     UserModel _okunanUserNesnesi = UserModel.fromMap(_okunanUserBilgileriMap);
     print("okunan user nesnesi : " + _okunanUserNesnesi.toString());
     return _okunanUserNesnesi;
-  }
+  }*/
 }

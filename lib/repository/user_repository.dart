@@ -9,6 +9,7 @@ enum AppMode { DEBUG, RELEASE }
 class UserRepository implements AuthBase {
   FirebaseAuthService _firebaseAuthService = locator<FirebaseAuthService>();
   FireStoreDBService _firestoreDBService = locator<FireStoreDBService>();
+
   AppMode appMode = AppMode.RELEASE;
   @override
   Future<UserModel> currentUser() async {
@@ -57,23 +58,20 @@ class UserRepository implements AuthBase {
       UserModel _user =
           await _firebaseAuthService.signInWithEmailandPassword(email, sifre);
 
-      return _user;
+      return await _firestoreDBService.readUser(_user.userID);
     }
   }
 
   @override
   Future<UserModel> createUserWithEmailandPassword(
       String email, String sifre) async {
-    if (appMode == AppMode.DEBUG) {
-      return null;
+    UserModel _user =
+        await _firebaseAuthService.createUserWithEmailandPassword(email, sifre);
+    bool _sonuc = await _firestoreDBService.saveUser(_user);
+    if (_sonuc) {
+      return _user;
     } else {
-      UserModel _user = await _firebaseAuthService
-          .createUserWithEmailandPassword(email, sifre);
-      bool _sonuc = await _firestoreDBService.saveUser(_user);
-      if (_sonuc) {
-        return await _firestoreDBService.readUser(_user.userID);
-      } else
-        return null;
+      return null;
     }
   }
 }
