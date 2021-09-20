@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
+import 'package:spacex/app/sign_in/reset_page.dart';
 import 'package:spacex/common_widgets/platform_duyarli_alert_dialog.dart';
 import 'package:spacex/common_widgets/social_log_in_button.dart';
 import 'package:spacex/models/hata_exception.dart';
@@ -148,6 +149,16 @@ class _EmailAndPasswordLoginPageState extends State<EmailAndPasswordLoginPage> {
                           onPressed: () => _degistir(),
                           child: Text(_linkText),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextButton(
+                          child: Text('Forgot Password?'),
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ResetScreen()),
+                          ),
+                        )
                       ],
                     ),
                   ),
