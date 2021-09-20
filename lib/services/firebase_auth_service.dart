@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spacex/models/user_model.dart';
@@ -6,6 +8,7 @@ import 'package:spacex/services/auth_base.dart';
 //katmanlı mimarimizin en alt tabakası network katmanı
 class FirebaseAuthService implements AuthBase {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  Timer timer;
   @override
   Future<UserModel> currentUser() async {
     try {
@@ -88,6 +91,17 @@ class FirebaseAuthService implements AuthBase {
     try {
       AuthResult sonuc = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: sifre);
+
+      sonuc.user.sendEmailVerification();
+      print("doğrulama maili gönderildi -----------");
+      timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+        await sonuc.user.reload();
+        if (sonuc.user.isEmailVerified) {
+          timer.cancel();
+          print("mail doğrulandı-----------------");
+        }
+      });
+
       return _userFromFirebase(sonuc.user);
     } catch (e) {
       print("firebase_auth_service createUserWithEmailandPassword hata" +

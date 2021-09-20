@@ -15,10 +15,7 @@ class FireStoreDBService implements DBBase {
   }
 
   @override
-  Future<UserModel> readUser(String userID) {
-    // TODO: implement readUser
-    throw UnimplementedError();
-  }
+  Future<UserModel> readUser(String userID) {}
 /*
   @override
   Future<UserModel> readUser(String userID) async {
