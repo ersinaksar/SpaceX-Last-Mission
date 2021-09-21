@@ -25,7 +25,7 @@ class FirebaseAuthService implements AuthBase {
       return null;
     } else {
       //return UserModel(userID: user.uid, email: user.email);
-      return UserModel(userID: user.uid);
+      return UserModel(userID: user.uid, email: user.email);
     }
   }
 
@@ -94,13 +94,16 @@ class FirebaseAuthService implements AuthBase {
 
       sonuc.user.sendEmailVerification();
       print("doğrulama maili gönderildi -----------");
+      /*
+      //Burayı açarsak giriş yapmadan önce doğrulama penceresi çıkarmak lazım yoksa
+      emaili ilk seferde tfirestora kaydetmeden devam ediyor
       timer = Timer.periodic(Duration(seconds: 5), (timer) async {
         await sonuc.user.reload();
         if (sonuc.user.isEmailVerified) {
           timer.cancel();
           print("mail doğrulandı-----------------");
         }
-      });
+      });*/
 
       return _userFromFirebase(sonuc.user);
     } catch (e) {

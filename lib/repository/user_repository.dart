@@ -43,7 +43,13 @@ class UserRepository implements AuthBase {
   @override
   Future<UserModel> signInWithGoogle() async {
     if (appMode == AppMode.RELEASE) {
-      return await _firebaseAuthService.signInWithGoogle();
+      UserModel _user = await _firebaseAuthService.signInWithGoogle();
+      bool _sonuc = await _firestoreDBService.saveUser(_user);
+      if (_sonuc) {
+        return _user;
+      } else {
+        return null;
+      }
     } else {
       return null;
     }

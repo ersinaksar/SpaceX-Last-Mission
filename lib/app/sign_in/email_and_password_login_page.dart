@@ -97,7 +97,7 @@ class _EmailAndPasswordLoginPageState extends State<EmailAndPasswordLoginPage> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
-                          initialValue: "ersin@ersin.com",
+                          initialValue: "ersinaksar@yandex.com",
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             errorText: _userViewModel.emailHataMesaji != null
